@@ -1,0 +1,10 @@
+TODO:
+	- Backend:
+		- Streaming from server to client
+		- Timeout (preventing infinite loop)
+	- Front end:
+		- Different language supports
+		- Syntax hightlighting
+		- Display output
+		- URL shortener
+		- Add user name
