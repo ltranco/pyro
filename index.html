@@ -1,21 +1,23 @@
 <!doctype html>
 <html>
 <head>
+  <title>PyroPad</title>
   <meta charset="utf-8" />
   <!-- Firebase -->
-  <script src="https://cdn.firebase.com/js/client/2.0.2/firebase.js"></script>
+  <script src="lib/firebase.js"></script>
 
   <!-- CodeMirror and its JavaScript mode file -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/4.5.0/codemirror.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/4.5.0/mode/javascript/javascript.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/4.5.0/codemirror.css" />
+  <script src="lib/codemirror.js"></script>
+  <script src="lib/mode/javascript.js"></script>
+  <script src="lib/mode/python.js"></script>
+  <link rel="stylesheet" href="lib/codemirror.css" />
 
   <!-- Firepad -->
-  <link rel="stylesheet" href="https://cdn.firebase.com/libs/firepad/1.1.0/firepad.css" />
-  <script src="https://cdn.firebase.com/libs/firepad/1.1.0/firepad.min.js"></script>
+  <link rel="stylesheet" href="lib/firepad.css" />
+  <script src="lib/firepad.min.js"></script>
 
   <!-- Socket.io -->
-  <script src="https://cdn.socket.io/socket.io-1.3.4.js"></script>
+  <script src="lib/socket.io-1.3.4.js"></script>
 
   <style>
     html { height: 100%; }
@@ -30,7 +32,13 @@
 </head>
 
 <body>
-  <button onclick="curText()">Text</button>
+  <select>
+      <option>C</option>
+      <option>C++</option>
+      <option>Java</option>
+      <option>Python</option>
+  </select>
+  <button onclick="curText()">Compile &amp; Run</button>
   <div id="firepad-container"></div>
 </body>
 
@@ -39,7 +47,7 @@
     var socket = io('https://hidden-inlet-2774.herokuapp.com/');
     var codeMirror = CodeMirror(document.getElementById('firepad-container'), {
         lineNumbers: true,
-        mode: 'javascript'
+        mode: 'python'
     });
     var firepad = Firepad.fromCodeMirror(firepadRef, codeMirror, {
         defaultText: 'name = "Magneto"\nprint "My boss is %s" % name'
@@ -51,7 +59,7 @@
 
     socket.on('output', function(output) {
       console.log(output);
-      alert(output.output);
+      alert(output.stdout);
     });
 
     // Helper to get hash from end of URL or generate a random one.
