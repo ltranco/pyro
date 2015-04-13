@@ -34,6 +34,7 @@
       color: white;
       font-family: "Courier New", Courier, monospace;
       padding: 8px 0 0 8px;
+      overflow-y: auto;
     }
   </style>
 </head>
@@ -79,7 +80,9 @@
 
     socket.on('output', function(output) {
       console.log(output);
-      $("#result").text(output.stdout);
+      var content = "<div id=\"result\">" + output.stdout + output.stderr + "</div";
+      $("#result").replaceWith(content);
+      //$("#result").text(output.stderr);
     });
 
     // Helper to get hash from end of URL or generate a random one.
