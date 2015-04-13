@@ -79,8 +79,10 @@
     });
 
     socket.on('output', function(output) {
-      console.log(output);
-      var content = "<div id=\"result\">" + output.stdout + output.stderr + "</div";
+      console.log(output.stdout.split("\n"));
+      
+      var out = output.stdout.split("\n").filter(function(i) {return i != ""}).join("<br>");
+      var content = "<div id=\"result\">" + out + output.stderr + "</div";
       $("#result").replaceWith(content);
       //$("#result").text(output.stderr);
     });
@@ -102,6 +104,7 @@
     }
 
     function sendCode() {
+      console.log(firepad.getText());
       socket.emit('compile', {filename:'solution.py', compiler:'python', code:firepad.getText()});
     }
   </script>
