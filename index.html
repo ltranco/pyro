@@ -13,30 +13,10 @@
   <link rel="stylesheet" href="lib/theme/midnight.css"/>
   <link rel="stylesheet" href="lib/codemirror.css" />
   <link rel="stylesheet" href="lib/firepad.css" />
+  <link rel="stylesheet" href="lib/custom.css" />
   <script src="lib/firepad.min.js"></script>
   <script src="lib/socket.io-1.3.4.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-
-  <style>
-    html { height: 100%; }
-    body { margin: 0; height: 100%; position: relative; }
-    /* Height / width / positioning can be customized for your use case.
-       For demo purposes, we make firepad fill the entire browser. */
-    #firepad-container {
-      width: 100%;
-      height: 80%;
-      display: inline-block;
-    }
-    #result {
-      width: 100%;
-      height: 20%;
-      background-color: #0F192A;
-      color: white;
-      font-family: "Courier New", Courier, monospace;
-      padding: 8px 0 0 8px;
-      overflow-y: auto;
-    }
-  </style>
 </head>
 
 <body>
@@ -47,67 +27,78 @@
       <option>Java</option>
   </select>
   <button onclick="sendCode()">Compile &amp; Run</button>
+
   <div id="firepad-container"></div>
   <div id="result"></div>
 </body>
 
-  <script>
-    var firepadRef = getRef();
-    var socket = io('https://hidden-inlet-2774.herokuapp.com/');
-    var codeMirror = CodeMirror(document.getElementById('firepad-container'), {
-        lineNumbers: true,
-        theme: 'midnight',
-        mode: 'python'
-    });
-    var firepad = Firepad.fromCodeMirror(firepadRef, codeMirror, {
-        defaultText: 'print \'hello\''
-    });
-    var mode = {'c':'clike', 'c++':'clike', 'java':'clike'};
+<script>
+  var firepadRef = getRef();
+  var socket = io('https://hidden-inlet-2774.herokuapp.com/');
+  var codeMirror = CodeMirror(document.getElementById('firepad-container'), {
+      lineNumbers: true,
+      theme: 'midnight',
+      mode: 'python'
+  });
+  var firepad = Firepad.fromCodeMirror(firepadRef, codeMirror, {
+      defaultText: 'print \'hello\''
+  });
+  var mode = {'c':'clike', 'c++':'clike', 'java':'clike'};
+  var compi = {'java': 'javac', 'c++':'gcc', 'c':'gcc'};
+  var ext = {'python':'py', 'haskell':'hs', 'java':'java', 'c':'c', 'c++':'cpp'};
+  var compiler = 'python';
+  var filename = 'solution.py';
+  var setMode = 'python';
+
+  $("#lang").change(function(e) {
+    var lang = $(this).val().toLowerCase();
+    console.log("lang is now " + lang);
+    if(lang in mode) {
+      setMode = mode[lang];
+    }
+    if(lang in compi) {
+      compiler = compi[lang];
+    }
+    if(lang in ext) {
+      filename = 'solution.' + ext[lang];
+    }
+    codeMirror.setOption("mode", setMode);
+    console.log(lang + " " + compiler + " " + filename);
+  });
+
+  socket.on('output', function(output) {      
+    var out = output.stdout.split("\n").join("<br>");
+    var err = output.stderr.split("\n").join("<br>");
+    var content = "<div id=\"result\">" + out + err + "</div";
+    $("#result").replaceWith(content);
     
-    $("#lang").change(function(e) {
-      console.log("change mode");
-      var lang = $(this).val().toLowerCase();
-      if(lang in mode) {
-        lang = mode[lang];
-      }
-      codeMirror.setOption("mode", lang);
-      console.log(codeMirror.getOption("mode"));
-    });
+  });
 
-    socket.on('connect', function () {
-      console.log("socket connected");
-    });
-
-    socket.on('output', function(output) {      
-      var out = output.stdout.split("\n").join("<br>");
-      var content = "<div id=\"result\">" + out + output.stderr + "</div";
-      $("#result").replaceWith(content);
-      //$("#result").text(output.stderr);
-    });
-
-    // Helper to get hash from end of URL or generate a random one.
-    function getRef() {
-      var ref = new Firebase('https://boiling-fire-6186.firebaseio.com/');
-      var hash = window.location.hash.replace(/#/g, '');
-      if (hash) {
-        ref = ref.child(hash);
-      } 
-      else {
-        ref = ref.push(); // generate unique location.
-        window.location = window.location + '#' + ref.key(); // add it as a hash to the URL.
-      }
-      if (typeof console !== 'undefined')
-        console.log('Firebase data: ', ref.toString());
-      return ref;
+  function getRef() {
+    var ref = new Firebase('https://boiling-fire-6186.firebaseio.com/');
+    var hash = window.location.hash.replace(/#/g, '');
+    if (hash) {
+      ref = ref.child(hash);
+    } 
+    else {
+      ref = ref.push(); // generate unique location.
+      window.location = window.location + '#' + ref.key(); // add it as a hash to the URL.
     }
+    if (typeof console !== 'undefined')
+      console.log('Firebase data: ', ref.toString());
+    return ref;
+  }
 
-    function sendCode() {
-      var code = firepad.getText();
-      //code = code.replace(/\n/g, "\\n");
-      code = code.replace(/'/g, "\"");
-      code = code.replace(/\".*?(\\n).*?\"/g, '\\n');
-      console.log(code);
-      socket.emit('compile', {filename:'solution.py', compiler:'python', code:code});
-    }
-  </script>
+  function sendCode() {
+    var code = firepad.getText();
+    //Hack to fix \n error
+    code = code.replace(/'/g, "\"");
+    code = code.replace(/\\/g, "~@~@~@")
+    code = code.replace(/~@~@~@n/g, "\\\\\/n");
+    code = code.replace(/\/n/g, "n");
+    code = code.replace(/~@~@~@/g, "\\");
+    //console.log(code);
+    socket.emit('compile', {filename:filename, compiler:compiler, code:code});
+  }
+</script>
 </html>

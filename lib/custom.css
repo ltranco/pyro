@@ -1,0 +1,18 @@
+html { height: 100%; }
+body { margin: 0; height: 100%; position: relative; }
+
+#firepad-container {
+  width: 100%;
+  height: 80%;
+  display: inline-block;
+}
+
+#result {
+  width: 100%;
+  height: 20%;
+  background-color: #0F192A;
+  color: white;
+  font-family: "Courier New", Courier, monospace;
+  padding: 8px 0 0 8px;
+  overflow-y: auto;
+}
