@@ -79,7 +79,7 @@
     });
 
     socket.on('output', function(output) {      
-      var out = output.stdout.split("\n").filter(function(i) {return i != ""}).join("<br>");
+      var out = output.stdout.split("\n").join("<br>");
       var content = "<div id=\"result\">" + out + output.stderr + "</div";
       $("#result").replaceWith(content);
       //$("#result").text(output.stderr);
@@ -103,7 +103,9 @@
 
     function sendCode() {
       var code = firepad.getText();
+      //code = code.replace(/\n/g, "\\n");
       code = code.replace(/'/g, "\"");
+
       console.log(code);
       socket.emit('compile', {filename:'solution.py', compiler:'python', code:code});
     }
