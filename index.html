@@ -63,7 +63,7 @@
         defaultText: 'print \'hello\''
     });
     var mode = {'c':'clike', 'c++':'clike', 'java':'clike'};
-
+    
     $("#lang").change(function(e) {
       console.log("change mode");
       var lang = $(this).val().toLowerCase();
@@ -105,15 +105,9 @@
       var code = firepad.getText();
       //code = code.replace(/\n/g, "\\n");
       code = code.replace(/'/g, "\"");
-
+      code = code.replace(/\".*?(\\n).*?\"/g, '\\n');
       console.log(code);
       socket.emit('compile', {filename:'solution.py', compiler:'python', code:code});
     }
   </script>
 </html>
-
-
-
-
-
-
