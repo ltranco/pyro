@@ -1,18 +1,46 @@
 html { height: 100%; }
-body { margin: 0; height: 100%; position: relative; }
+body { 
+  margin: 0; 
+  height: 100%; 
+  position: relative; 
+  background-color: #0F192A;
+}
+
+#controls {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  height: 30px;
+  background-color: #0F192A;
+}
+
+#pad {
+  height: 100%;
+  margin-top: 30px;
+}
 
 #firepad-container {
-  width: 100%;
-  height: 80%;
-  display: inline-block;
+  height: 100%;
+  width: 60%;
+  top: 33px;
+  float: left;
+}
+
+#preresult {
+  float: left;
+  width: 38%;
+  height: 100%;
+  border-style: solid;
+  border-left: solid white;
+  overflow-y: auto;
 }
 
 #result {
-  width: 100%;
-  height: 20%;
-  background-color: #0F192A;
-  color: white;
+  padding: 0 0 0 5px;
   font-family: "Courier New", Courier, monospace;
-  padding: 8px 0 0 8px;
+  font-size: 15px;
+  color: white;
   overflow-y: auto;
 }

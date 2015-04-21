@@ -20,16 +20,20 @@
 </head>
 
 <body>
-  <select id="lang">
+  <div id="controls">
+    <select id="lang">
       <option>Python</option>
       <option>C</option>
       <option>C++</option>
       <option>Java</option>
-  </select>
-  <button onclick="sendCode()">Compile &amp; Run</button>
-
-  <div id="firepad-container"></div>
-  <div id="result"></div>
+    </select>
+    <button onclick="sendCode()">Compile &amp; Run</button>
+  </div>
+  <div id="pad">
+    <div id="firepad-container"></div>
+    <div id="preresult">
+    <pre id=""><code id="result"></code></pre></div>
+  </div>
 </body>
 
 <script>
