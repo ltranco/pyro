@@ -22,10 +22,11 @@
 <body>
   <div id="controls">
     <select id="lang">
+      <option>Java</option>
       <option>Python</option>
       <option>C</option>
       <option>C++</option>
-      <option>Java</option>
+      
     </select>
     <button onclick="sendCode()">Compile &amp; Run</button>
   </div>
@@ -42,7 +43,7 @@
   var codeMirror = CodeMirror(document.getElementById('firepad-container'), {
       lineNumbers: true,
       theme: 'midnight',
-      mode: 'python'
+      mode: 'clike'
   });
   var firepad = Firepad.fromCodeMirror(firepadRef, codeMirror, {
       defaultText: 'print \'hello\''
