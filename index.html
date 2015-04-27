@@ -43,12 +43,12 @@
   var codeMirror = CodeMirror(document.getElementById('firepad-container'), {
       lineNumbers: true,
       theme: 'midnight',
-      mode: 'clike'
+      mode: 'text/x-java'
   });
   var firepad = Firepad.fromCodeMirror(firepadRef, codeMirror, {
       defaultText: 'print \'hello\''
   });
-  var mode = {'c':'clike', 'c++':'clike', 'java':'clike'};
+  var mode = {'c':'clike', 'c++':'clike', 'java':'text/x-java'};
   var compi = {'java': 'javac', 'c++':'gcc', 'c':'gcc'};
   var ext = {'python':'py', 'haskell':'hs', 'java':'java', 'c':'c', 'c++':'cpp'};
   var compiler = 'python';
