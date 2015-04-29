@@ -24,9 +24,9 @@ select#lang {
   line-height: 1;
   height: 32px;
   border:1px solid #4674C3;
-  -moz-border-radius: 10px;
+  -moz-border-radius: 0px;
   -webkit-border-radius: 10px;
-  border-radius: 10px;
+  border-radius: 1px;
   -webkit-box-shadow: 0 0 4px rgba(0,0,0, .75);
   -moz-box-shadow: 0 0 4px rgba(0,0,0, .75);
   box-shadow: 0 0 4px rgba(0,0,0, .75);
