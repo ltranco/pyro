@@ -68,8 +68,8 @@
       mode: 'text/plain'
   });
 
-  var mode = {'c':'clike', 'c++':'clike', 'java':'text/x-java'};
-  var compi = {'java': 'javac', 'c++':'gcc', 'c':'gcc'};
+  var mode = {'c':'clike', 'c++':'clike', 'java':'text/x-java', 'python':'python'};
+  var compi = {'java': 'javac', 'c++':'gcc', 'c':'gcc', 'python':'python'};
   var ext = {'python':'py', 'haskell':'hs', 'java':'java', 'c':'c', 'c++':'cpp'};
   var compiler = 'python';
   var filename = 'solution.py';
@@ -96,6 +96,7 @@
     //var err = output.stderr.split("\n").join("<br>");
     //var content = "<div id=\"result\">" + out + err + "</div";
     //$("#result").replaceWith(content);
+    outputpad.setText("");
     var content = output.stderr + output.stdout;
     outputpad.setText(content);
     
@@ -119,6 +120,7 @@
   function sendCode() {
     var code = firepad.getText();
     code = encodeURI(code);
+    //outputpad.dispose();
     //Hack to fix \n error
     /*code = code.replace(/'/g, "\"");
     code = code.replace(/\\/g, "~@~@~@")
