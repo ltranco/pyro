@@ -66,6 +66,11 @@ select#lang {
   top: 33px;
   float: left;
 }
+#firepad-container-output {
+  height: 100%;
+  float: left;
+  width: 38%;
+}
 
 #preresult {
   float: left;

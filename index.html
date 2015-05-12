@@ -17,7 +17,6 @@
   <script src="lib/mode/python.js"></script>
   <script src="lib/mode/clike.js"></script>
   <script src="lib/mode/haskell.js"></script>
-  <link rel="stylesheet" href="lib/theme/midnight.css"/>
 
 
   <link rel="stylesheet" href="lib/theme/midnight.css"/>
@@ -33,29 +32,42 @@
     <select id="lang">
       <option>Python</option>
       <option>Java</option>
-      <option>C</option>
-      <option>C++</option>
+      <!--<option>C</option>
+      <option>C++</option>-->
     </select>
     <button id="comp" onclick="sendCode()">Run</button>
   </div>
   <div id="pad">
     <div id="firepad-container"></div>
-    <div id="preresult">
-    <pre id=""><code id="result"></code></pre></div>
+    <div id="firepad-container-output"></div>
+    <!--<div id="preresult">
+      <pre id=""><code id="result"></code></pre>
+    </div>-->
   </div>
 </body>
 
 <script>
   var firepadRef = getRef();
+  var outputRef = new Firebase('https://boiling-fire-6186.firebaseio.com/');
   var socket = io('https://hidden-inlet-2774.herokuapp.com/');
+  
   var codeMirror = CodeMirror(document.getElementById('firepad-container'), {
       lineNumbers: true,
       theme: 'midnight',
       mode: 'text/x-java'
   });
+  var codeMirrorOutput = CodeMirror(document.getElementById('firepad-container-output'), {
+      lineNumbers: true,
+      theme: 'midnight'
+  });
   var firepad = Firepad.fromCodeMirror(firepadRef, codeMirror, {
       defaultText: 'print \'hello\''
   });
+  var outputpad = Firepad.fromCodeMirror(outputRef, codeMirrorOutput, {
+      defaultText: "OUTPUT",
+      mode: 'text/plain'
+  });
+
   var mode = {'c':'clike', 'c++':'clike', 'java':'text/x-java'};
   var compi = {'java': 'javac', 'c++':'gcc', 'c':'gcc'};
   var ext = {'python':'py', 'haskell':'hs', 'java':'java', 'c':'c', 'c++':'cpp'};
@@ -80,10 +92,12 @@
   });
 
   socket.on('output', function(output) {      
-    var out = output.stdout.split("\n").join("<br>");
-    var err = output.stderr.split("\n").join("<br>");
-    var content = "<div id=\"result\">" + out + err + "</div";
-    $("#result").replaceWith(content);
+    //var out = output.stdout.split("\n").join("<br>");
+    //var err = output.stderr.split("\n").join("<br>");
+    //var content = "<div id=\"result\">" + out + err + "</div";
+    //$("#result").replaceWith(content);
+    var content = output.stderr + output.stdout;
+    outputpad.setText(content);
     
   });
 
@@ -104,12 +118,13 @@
 
   function sendCode() {
     var code = firepad.getText();
+    code = encodeURI(code);
     //Hack to fix \n error
-    code = code.replace(/'/g, "\"");
+    /*code = code.replace(/'/g, "\"");
     code = code.replace(/\\/g, "~@~@~@")
     code = code.replace(/~@~@~@n/g, "\\\\\/n");
     code = code.replace(/\/n/g, "n");
-    code = code.replace(/~@~@~@/g, "\\");
+    code = code.replace(/~@~@~@/g, "\\");*/
     //console.log(code);
     socket.emit('compile', {filename:filename, compiler:compiler, code:code});
   }
