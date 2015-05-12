@@ -58,14 +58,14 @@
   });
   var codeMirrorOutput = CodeMirror(document.getElementById('firepad-container-output'), {
       lineNumbers: true,
-      theme: 'midnight'
+      theme: 'midnight',
+      mode: 'text/plain'
   });
   var firepad = Firepad.fromCodeMirror(firepadRef, codeMirror, {
       defaultText: 'print \'hello\''
   });
   var outputpad = Firepad.fromCodeMirror(outputRef, codeMirrorOutput, {
-      defaultText: "OUTPUT",
-      mode: 'text/plain'
+      defaultText: "OUTPUT"
   });
 
   var mode = {'c':'clike', 'c++':'clike', 'java':'text/x-java', 'python':'python'};
