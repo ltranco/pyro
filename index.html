@@ -48,8 +48,9 @@
 
 <script>
   var firepadRef = getRef();
-  var outputRef = new Firebase('https://boiling-fire-6186.firebaseio.com/');
-  
+  var outputRef = new Firebase('https://boiling-fire-6186.firebaseio.com/pyro-6186-output');
+  console.log(outputRef.toString());
+  //outputRef = outputRef.push();
   var socket = io('https://hidden-inlet-2774.herokuapp.com/');
   
   var codeMirror = CodeMirror(document.getElementById('firepad-container'), {
