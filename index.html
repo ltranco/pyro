@@ -28,7 +28,7 @@
       <!--<option>C</option>
       <option>C++</option>-->
     </select>
-    <button id="comp" onclick="sendCode()">Run</button>
+    <button id="comp" onclick="sendCode()">&#9658;</button>
     <button id="shareLink" onclick="shareLink()">Copy Link</button>
   </div>
 
@@ -92,19 +92,19 @@
     });
 
     if(hasFlash) {
-        ZeroClipboard.config({swfPath:"https://cdnjs.cloudflare.com/ajax/libs/zeroclipboard/2.2.0/ZeroClipboard.swf"});
+        ZeroClipboard.config({swfPath:"//cdnjs.cloudflare.com/ajax/libs/zeroclipboard/2.2.0/ZeroClipboard.swf"});
         var client = new ZeroClipboard($("#shareLink"));
-        document.getElementById('global-zeroclipboard-html-bridge').style.position = 'fixed';
         client.clip(document.getElementById("shareLink"));    
         client.on("ready", function(event) {
-          console.log("hello");
-          client.on("copy", function(event) {
-            event.clipboardData.setData('text/plain', "COPY");
-          });
+          client.setText(window.location.href);
         });
     }
 
     function shareLink() {
+      $("#shareLink").text("Copied").css("color", "#7FFF00");
+      window.setTimeout(function() {
+        $("#shareLink").text("Copy Link").css("color", "white");
+      }, 800);
       if(!hasFlash) {
         window.prompt("Copy Link", window.location.href);
       }

@@ -36,7 +36,7 @@ select#lang {
   box-shadow: 0 0 4px rgba(0,0,0, .75);
 }
 
-#comp, #share {
+#comp, #shareLink {
   cursor:pointer;
   margin-left: 10px;
   padding:3px 9px;
@@ -44,15 +44,20 @@ select#lang {
   border:1px solid white;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
-  border-radius: 10px;
+  border-radius: 5px;
   -webkit-box-shadow: 0 0 4px rgba(0,0,0, .75);
   -moz-box-shadow: 0 0 4px rgba(0,0,0, .75);
   box-shadow: 0 0 4px rgba(0,0,0, .75);
   color:#f3f3f3;
-  font-size:1.1em;
+  font-size: 18px;
 }
 
-#comp:hover, #comp:focus{
+#clickedShareLink {
+  background-color: red;
+  transition-duration: 1s;
+}
+
+#comp:hover, #shareLink:hover{
   opacity: 0.9;
   -webkit-box-shadow: 0 0 1px rgba(0,0,0, .75);
   -moz-box-shadow: 0 0 1px rgba(0,0,0, .75);
