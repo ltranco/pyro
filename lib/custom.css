@@ -5,7 +5,11 @@ body {
   position: relative; 
   background-color: #0F192A;
 }
-
+* {
+  outline: 0;
+}
+:focus {outline:none;}
+::-moz-focus-inner {border:0;}
 #controls {
   position: fixed;
   top: 0;
@@ -32,7 +36,7 @@ select#lang {
   box-shadow: 0 0 4px rgba(0,0,0, .75);
 }
 
-#comp {
+#comp, #share {
   cursor:pointer;
   margin-left: 10px;
   padding:3px 9px;
