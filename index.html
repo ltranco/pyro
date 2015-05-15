@@ -86,6 +86,7 @@
     });
   
     socket.on('output', function(output) {      
+      $("#comp").html("&#9658;");
       outputpad.setText("");
       var content = output.stderr + output.stdout;
       outputpad.setText(content);
@@ -127,6 +128,7 @@
     }
   
     function sendCode() {
+      $("#comp").html("&bull;&bull;&bull;");
       var code = firepad.getText();
       code = encodeURI(code);
       socket.emit('compile', {filename:filename, compiler:compiler, code:code});
