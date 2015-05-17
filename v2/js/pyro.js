@@ -1,6 +1,7 @@
 var hasFlash = ((typeof navigator.plugins != "undefined" && typeof navigator.plugins["Shockwave Flash"] == "object") || (window.ActiveXObject && (new ActiveXObject("ShockwaveFlash.ShockwaveFlash")) != false));
 var firebase_url = "";
 var pythonDefault = "print 'Welcome to PyroPad!'";
+var javaDefault = "//Please keep your public class name as 'solution'\npublic class solution {\n  public static void main(String[] args) {\n    System.out.println(\"Welcome to PyroPad!\");\n  }\n}";
 var socket = io('https://hidden-inlet-2774.herokuapp.com/');
 var codeMirror = CodeMirror(document.getElementById('firepad-container'), {lineNumbers: true, theme: 'monokai', mode: 'python'});
 var codeMirrorOutput = CodeMirror(document.getElementById('firepad-container-output'), {lineNumbers: true, theme: 'monokai', mode: 'text/plain', readOnly: "nocursor"});
@@ -11,6 +12,23 @@ var outputpad = Firepad.fromCodeMirror(outputRef, codeMirrorOutput, {defaultText
 var compiler = 'python';
 var filename = 'solution.py';
 var setMode = 'python';
+var mode = {'c':'clike', 'c++':'clike', 'java':'text/x-java', 'python':'python'};
+var compile = {'java': 'javac', 'c++':'gcc', 'c':'gcc', 'python':'python'};
+var ext = {'python':'py', 'haskell':'hs', 'java':'java', 'c':'c', 'c++':'cpp'};
+var templateCode = {'python':pythonDefault, 'java':javaDefault};
+
+$("#languageoption li a").click(function(){
+  $("#languageselected").html($(this).text() + "<strong class=\"caret\"></strong>");
+  var lang = $(this).text().toLowerCase();
+  console.log("lang is now " + lang);
+  setMode = mode[lang];
+  compiler = compile[lang];
+  filename = 'solution.' + ext[lang];
+
+  codeMirror.setOption("mode", setMode);
+  firepad.setText(templateCode[lang]);
+  console.log(lang + " " + compiler + " " + filename);
+});
 
 socket.on('output', function(output) {      
   $("#comp").html("&#9658;");
@@ -60,28 +78,4 @@ function shareLink() {
   if(!hasFlash) {
     window.prompt("Copy Link", window.location.href);
   }
-}
-
-    
-  /*
-    var mode = {'c':'clike', 'c++':'clike', 'java':'text/x-java', 'python':'python'};
-    var compi = {'java': 'javac', 'c++':'gcc', 'c':'gcc', 'python':'python'};
-    var ext = {'python':'py', 'haskell':'hs', 'java':'java', 'c':'c', 'c++':'cpp'};
-    
-  
-    $("#lang").change(function(e) {
-      var lang = $(this).val().toLowerCase();
-      console.log("lang is now " + lang);
-      if(lang in mode) {
-        setMode = mode[lang];
-      }
-      if(lang in compi) {
-        compiler = compi[lang];
-      }
-      if(lang in ext) {
-        filename = 'solution.' + ext[lang];
-      }
-      codeMirror.setOption("mode", setMode);
-      console.log(lang + " " + compiler + " " + filename);
-    });*/
-    
+}    
