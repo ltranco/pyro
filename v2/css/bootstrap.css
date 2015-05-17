@@ -4,10 +4,11 @@
 
 .CodeMirror, .firepad {
  height: 100% !important;
+ overflow-y: hidden !important;
 }
 
 .userPanel {
-  background-color: #0F192F;
+  background-color: #282E35;
   color: white;
 }
 
@@ -792,6 +793,7 @@ pre code {
   margin-right: auto;
   margin-left: auto;
   height: 100%;
+  position: fixed;
 }
 
 .container:before,
@@ -2587,6 +2589,7 @@ input[type="button"].btn-block {
 
 .collapse {
   display: none;
+  background-color: #282E35;
 }
 
 .collapse.in {
@@ -4038,12 +4041,13 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .nav > li {
   position: relative;
   display: block;
+  padding: 5px 0 5px 0;
 }
 
 .nav > li > a {
   position: relative;
   display: block;
-  padding: 10px 15px;
+  padding: 5px 10px;
 }
 
 .nav > li > a:hover,
@@ -4287,9 +4291,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 
 .navbar {
   position: relative;
-  min-height: 50px;
-  margin-bottom: 20px;
-  border: 1px solid transparent;
+  margin-bottom: 2px;
 }
 
 .navbar:before,
@@ -4346,8 +4348,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 
 .navbar-collapse {
   max-height: 340px;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding: 0px 15px 15px 15px;
   overflow-x: visible;
   border-top: 1px solid transparent;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
@@ -4507,8 +4508,8 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-nav > li > a {
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   line-height: 20px;
 }
 
@@ -4544,8 +4545,8 @@ textarea.input-group-sm > .input-group-btn > .btn {
     float: left;
   }
   .navbar-nav > li > a {
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
   }
 }
 
@@ -4667,7 +4668,10 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-default .navbar-nav > li > a {
-  color: #777777;
+  color: white;
+  background-color: #51b9b0;
+  border-radius: 3px;
+  margin: 0 5px 0 5px;
 }
 
 .navbar-default .navbar-nav > li > a:hover,

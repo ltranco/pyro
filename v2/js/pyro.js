@@ -2,8 +2,8 @@ var hasFlash = ((typeof navigator.plugins != "undefined" && typeof navigator.plu
 var firebase_url = "";
 var pythonDefault = "print 'Welcome to PyroPad!'";
 var socket = io('https://hidden-inlet-2774.herokuapp.com/');
-var codeMirror = CodeMirror(document.getElementById('firepad-container'), {lineNumbers: true, theme: 'midnight', mode: 'python'});
-var codeMirrorOutput = CodeMirror(document.getElementById('firepad-container-output'), {lineNumbers: true, theme: 'midnight', mode: 'text/plain'});
+var codeMirror = CodeMirror(document.getElementById('firepad-container'), {lineNumbers: true, theme: 'monokai', mode: 'python'});
+var codeMirrorOutput = CodeMirror(document.getElementById('firepad-container-output'), {lineNumbers: true, theme: 'monokai', mode: 'text/plain', readOnly: "nocursor"});
 var firepadRef = getRef();
 var outputRef = new Firebase(firebase_url);
 var firepad = Firepad.fromCodeMirror(firepadRef, codeMirror, {defaultText: pythonDefault});
