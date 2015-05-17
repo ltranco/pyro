@@ -12,6 +12,13 @@
   color: white;
 }
 
+#runButton {
+  cursor: pointer;
+  color: #2A3938 !important;
+}
+
+
+
 article,
 aside,
 details,

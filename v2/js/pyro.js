@@ -30,8 +30,8 @@ $("#languageoption li a").click(function(){
   console.log(lang + " " + compiler + " " + filename);
 });
 
-socket.on('output', function(output) {      
-  $("#comp").html("&#9658;");
+socket.on('output', function(output) {
+  $("#runButton").html("Run &#9658;");
   outputpad.setText("");
   var content = output.stderr + output.stdout;
   outputpad.setText(content);
@@ -64,10 +64,13 @@ function getRef() {
 }
 
 function sendCode() {
-  $("#comp").html("&bull;&bull;&bull;");
+
+  $("#runButton").html("<img src=\"img/loading.GIF\" id=\"loadingGIF\" alt=\"\"/>");
   var code = firepad.getText();
   code = encodeURI(code);
   socket.emit('compile', {filename:filename, compiler:compiler, code:code});
+  //$("#runButton").html("&bull;").delay(3000).html("&bull;&bull;"); 
+  
 }
 
 function shareLink() {
