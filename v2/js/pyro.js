@@ -49,9 +49,10 @@ socket.on('output', function(output) {
 });
 
 if(hasFlash) {
-  ZeroClipboard.config({swfPath:"https://cdnjs.cloudflare.com/ajax/libs/zeroclipboard/2.2.0/ZeroClipboard.swf"});
+  ZeroClipboard.config({swfPath:"//cdnjs.cloudflare.com/ajax/libs/zeroclipboard/2.2.0/ZeroClipboard.swf"});
   var client = new ZeroClipboard($("#shareLink"));
-  //client.clip(document.getElementById("shareLink"));    
+  client.clip(document.getElementById("shareLink"));    
+  document.getElementById('global-zeroclipboard-html-bridge').style.position = 'fixed';
   client.on("ready", function(event) {
     console.log("here2");
     client.setText(window.location.href);
