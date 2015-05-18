@@ -49,7 +49,6 @@ $("#languageoption li a").click(function(){
 
   codeMirror.setOption("mode", setMode);
   firepad.setText(templateCode[lang]);
-  console.log(lang + " " + compiler + " " + filename);
 });
 
 firepadLangRef.child("currLang").on("value", function(snapshot) {
@@ -61,7 +60,6 @@ firepadLangRef.child("currLang").on("value", function(snapshot) {
     filename = 'solution.' + ext[lang];
 
     codeMirror.setOption("mode", setMode);
-    console.log(lang + " " + compiler + " " + filename);
   }
 });
 
@@ -78,7 +76,6 @@ if(hasFlash) {
   client.clip(document.getElementById("shareLink"));    
   document.getElementById('global-zeroclipboard-html-bridge').style.position = 'fixed';
   client.on("ready", function(event) {
-    console.log("here2");
     client.setText(window.location.href);
   });
 }
@@ -97,8 +94,6 @@ function getRef() {
     firebase_url = ref.toString() + "--output";
     firebase_langOpt = ref.toString() + "--langOpt";
   }
-  console.log('Firebase data: ', ref.toString());
-  console.log("opt: " + firebase_langOpt);
   return ref;
 }
 
@@ -109,7 +104,6 @@ function savePad() {
   for(var i = 0; i < outputArray.length; i++) {
     content += (cmt[lang] + outputArray[i] + "\n");  
   }
-  console.log(content);
   var blob = new Blob([content], {type: "text/plain;charset=utf-8"});
   saveAs(blob, filename);
 }
