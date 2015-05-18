@@ -50,9 +50,8 @@ socket.on('output', function(output) {
 
 if(hasFlash) {
   ZeroClipboard.config({swfPath:"https://cdnjs.cloudflare.com/ajax/libs/zeroclipboard/2.2.0/ZeroClipboard.swf"});
-  console.log("here");
   var client = new ZeroClipboard($("#shareLink"));
-  client.clip(document.getElementById("shareLink"));    
+  //client.clip(document.getElementById("shareLink"));    
   client.on("ready", function(event) {
     console.log("here2");
     client.setText(window.location.href);
