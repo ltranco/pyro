@@ -1,9 +1,10 @@
 var hasFlash = ((typeof navigator.plugins != "undefined" && typeof navigator.plugins["Shockwave Flash"] == "object") || (window.ActiveXObject && (new ActiveXObject("ShockwaveFlash.ShockwaveFlash")) != false));
 var firebase_url = "";
+var userId = Math.floor(Math.random() * 9999999999).toString();
 var pythonDefault = "print 'Welcome to PyroPad in Python!'";
 var javaDefault = "//Please keep your public class name as 'solution'\npublic class solution {\n  public static void main(String[] args) {\n    System.out.println(\"Welcome to PyroPad in Java!\");\n  }\n}";
 var socket = io('https://hidden-inlet-2774.herokuapp.com/');
-var codeMirror = CodeMirror(document.getElementById('firepad-container'), {lineNumbers: true, theme: 'monokai', mode: 'python'});
+var codeMirror = CodeMirror(document.getElementById('firepad-container'), {lineNumbers: true, theme: 'monokai', mode: 'python', userId:userId});
 var codeMirrorOutput = CodeMirror(document.getElementById('firepad-container-output'), {lineNumbers: true, theme: 'monokai', mode: 'text/plain', readOnly: "nocursor"});
 var firepadRef = getRef();
 var outputRef = new Firebase(firebase_url);
@@ -17,6 +18,11 @@ var compile = {'java': 'javac', 'c++':'gcc', 'c':'gcc', 'python':'python'};
 var ext = {'python':'py', 'haskell':'hs', 'java':'java', 'c':'c', 'c++':'cpp'};
 var templateCode = {'python':pythonDefault, 'java':javaDefault};
 
+/*$(window).unload(function(){
+  localStorage.clear();
+  console.log("unload");
+});*/
+
 function fire() {
   var currLang = localStorage.getItem("currLang");
   if(currLang) {
@@ -26,6 +32,7 @@ function fire() {
     compiler = compile[currLang];
     filename = 'solution.' + ext[currLang];
   }
+  console.log(FirepadUserList.fromDiv(firepadRef.child('users'), document.getElementById('userPanel'), userId).userList_);
 }
 
 $("#languageoption li a").click(function(){
