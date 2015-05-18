@@ -800,7 +800,7 @@ pre code {
   margin-right: auto;
   margin-left: auto;
   height: 100%;
-  position: fixed;
+  /*position: fixed;*/
 }
 
 .container:before,
@@ -4506,7 +4506,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 
 @media (min-width: 768px) {
   .navbar-toggle {
-    display: none;
+   /* display: none;*/
   }
 }
 
