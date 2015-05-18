@@ -18,6 +18,10 @@
   text-align: center;
 }
 
+#languageselected, #savePad, #settings {
+  cursor: pointer;
+}
+
 #runButton {
   color: #2A3938 !important;
 }
