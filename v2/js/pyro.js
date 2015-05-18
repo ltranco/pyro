@@ -18,34 +18,50 @@ var compile = {'java': 'javac', 'c++':'gcc', 'c':'gcc', 'python':'python'};
 var ext = {'python':'py', 'haskell':'hs', 'java':'java', 'c':'c', 'c++':'cpp'};
 var templateCode = {'python':pythonDefault, 'java':javaDefault};
 
-/*$(window).unload(function(){
-  localStorage.clear();
-  console.log("unload");
-});*/
-
 function fire() {
-  var currLang = localStorage.getItem("currLang");
+  /*var currLang = localStorage.getItem("currLang");
   if(currLang) {
     $("#languageselected").html((currLang.charAt(0).toUpperCase() + currLang.slice(1)) + "<strong class=\"caret\"></strong>");
     codeMirror.setOption("mode", mode[currLang]);
     setMode = mode[currLang];
     compiler = compile[currLang];
     filename = 'solution.' + ext[currLang];
-  }
+  }*/
   console.log(FirepadUserList.fromDiv(firepadRef.child('users'), document.getElementById('userPanel'), userId).userList_);
 }
 
 $("#languageoption li a").click(function(){
   $("#languageselected").html($(this).text() + "<strong class=\"caret\"></strong>");
   var lang = $(this).text().toLowerCase();
-  localStorage.setItem("currLang", lang);
+  
   setMode = mode[lang];
   compiler = compile[lang];
   filename = 'solution.' + ext[lang];
 
   codeMirror.setOption("mode", setMode);
-  firepad.setText(templateCode[lang]);
+  console.log(templateCode[lang]);
+
   console.log(lang + " " + compiler + " " + filename);
+
+  if(lang == "java") {
+    firepadRef.update({currLang: "java"});  
+  }
+  else if(lang == "python") {
+    firepadRef.update({currLang: "python"});    
+  }
+});
+
+firepadRef.child("currLang").on("value", function(snapshot) {
+  var changeTo = snapshot.val();
+  console.log(changeTo);
+  $("#languageselected").html((changeTo.charAt(0).toUpperCase() + changeTo.slice(1)) + "<strong class=\"caret\"></strong>");
+  codeMirror.setOption("mode", mode[changeTo]);
+  setMode = mode[changeTo];
+  compiler = compile[changeTo];
+  filename = 'solution.' + ext[changeTo];
+  firepad.on("ready", function() {
+    //firepad.setText(templateCode[changeTo]);
+  });
 });
 
 socket.on('output', function(output) {
@@ -80,6 +96,7 @@ function getRef() {
     firebase_url = ref.toString() + "--output";
   }
   console.log('Firebase data: ', ref.toString());
+  console.log('userid: ', ref.userId);
   return ref;
 }
 
