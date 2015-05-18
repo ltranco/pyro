@@ -1,7 +1,7 @@
 var hasFlash = ((typeof navigator.plugins != "undefined" && typeof navigator.plugins["Shockwave Flash"] == "object") || (window.ActiveXObject && (new ActiveXObject("ShockwaveFlash.ShockwaveFlash")) != false));
 var firebase_url = "";
-var pythonDefault = "print 'Welcome to PyroPad!'";
-var javaDefault = "//Please keep your public class name as 'solution'\npublic class solution {\n  public static void main(String[] args) {\n    System.out.println(\"Welcome to PyroPad!\");\n  }\n}";
+var pythonDefault = "print 'Welcome to PyroPad in Python!'";
+var javaDefault = "//Please keep your public class name as 'solution'\npublic class solution {\n  public static void main(String[] args) {\n    System.out.println(\"Welcome to PyroPad in Java!\");\n  }\n}";
 var socket = io('https://hidden-inlet-2774.herokuapp.com/');
 var codeMirror = CodeMirror(document.getElementById('firepad-container'), {lineNumbers: true, theme: 'monokai', mode: 'python'});
 var codeMirrorOutput = CodeMirror(document.getElementById('firepad-container-output'), {lineNumbers: true, theme: 'monokai', mode: 'text/plain', readOnly: "nocursor"});
@@ -17,10 +17,21 @@ var compile = {'java': 'javac', 'c++':'gcc', 'c':'gcc', 'python':'python'};
 var ext = {'python':'py', 'haskell':'hs', 'java':'java', 'c':'c', 'c++':'cpp'};
 var templateCode = {'python':pythonDefault, 'java':javaDefault};
 
+function fire() {
+  var currLang = localStorage.getItem("currLang");
+  if(currLang) {
+    $("#languageselected").html((currLang.charAt(0).toUpperCase() + currLang.slice(1)) + "<strong class=\"caret\"></strong>");
+    codeMirror.setOption("mode", mode[currLang]);
+    setMode = mode[currLang];
+    compiler = compile[currLang];
+    filename = 'solution.' + ext[currLang];
+  }
+}
+
 $("#languageoption li a").click(function(){
   $("#languageselected").html($(this).text() + "<strong class=\"caret\"></strong>");
   var lang = $(this).text().toLowerCase();
-  console.log("lang is now " + lang);
+  localStorage.setItem("currLang", lang);
   setMode = mode[lang];
   compiler = compile[lang];
   filename = 'solution.' + ext[lang];
@@ -38,12 +49,14 @@ socket.on('output', function(output) {
 });
 
 if(hasFlash) {
-    ZeroClipboard.config({swfPath:"https://cdnjs.cloudflare.com/ajax/libs/zeroclipboard/2.2.0/ZeroClipboard.swf"});
-    //var client = new ZeroClipboard($("#shareLink"));
-    //client.clip(document.getElementById("shareLink"));    
-    //client.on("ready", function(event) {
-    //client.setText(window.location.href);
-  //});
+  ZeroClipboard.config({swfPath:"https://cdnjs.cloudflare.com/ajax/libs/zeroclipboard/2.2.0/ZeroClipboard.swf"});
+  console.log("here");
+  var client = new ZeroClipboard($("#shareLink"));
+  client.clip(document.getElementById("shareLink"));    
+  client.on("ready", function(event) {
+    console.log("here2");
+    client.setText(window.location.href);
+  });
 }
 
 function getRef() {
@@ -74,10 +87,10 @@ function sendCode() {
 }
 
 function shareLink() {
-  $("#shareLink").text("Copied").css("color", "#7FFF00");
+  /*$("#shareLink").text("Copied").css("color", "#7FFF00");
   window.setTimeout(function() {
     $("#shareLink").text("Copy Link").css("color", "white");
-  }, 800);
+  }, 800);*/
   if(!hasFlash) {
     window.prompt("Copy Link", window.location.href);
   }

@@ -15,9 +15,9 @@
 #runButton {
   cursor: pointer;
   color: #2A3938 !important;
+  width: 65px;
+  text-align: center;
 }
-
-
 
 article,
 aside,
@@ -4656,7 +4656,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-default {
-  background-color: #f8f8f8;
+  background-color: #282E35;
   border-color: #e7e7e7;
 }
 
