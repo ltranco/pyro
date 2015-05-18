@@ -105,7 +105,6 @@ var FirepadUserList = (function() {
         delete userId2Element[userId];
       }
       var name = userSnapshot.child('name').val();
-      console.log("name is " + name);
       if (typeof name !== 'string') { name = ''; }
       name = name.substring(0, 20);
 
@@ -146,7 +145,6 @@ var FirepadUserList = (function() {
       }
     });
 
-    console.log(userList);
     return userList;
   };
 

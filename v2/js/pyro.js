@@ -40,7 +40,7 @@ $("#languageoption li a").click(function(){
 
   codeMirror.setOption("mode", setMode);
   console.log(templateCode[lang]);
-
+  //firepad.setText(templateCode[lang]);
   console.log(lang + " " + compiler + " " + filename);
 
   if(lang == "java") {
@@ -53,16 +53,25 @@ $("#languageoption li a").click(function(){
 
 firepadRef.child("currLang").on("value", function(snapshot) {
   var changeTo = snapshot.val();
-  console.log(changeTo);
+  console.log("changeTO " + changeTo);
   $("#languageselected").html((changeTo.charAt(0).toUpperCase() + changeTo.slice(1)) + "<strong class=\"caret\"></strong>");
   codeMirror.setOption("mode", mode[changeTo]);
   setMode = mode[changeTo];
   compiler = compile[changeTo];
   filename = 'solution.' + ext[changeTo];
-  firepad.on("ready", function() {
-    //firepad.setText(templateCode[changeTo]);
-  });
+  console.log("SETTING THIS PLEASEEE: " + templateCode[changeTo]);
+  pleaseSetText(templateCode[changeTo]);
 });
+
+$("#languageselected").on("change", function(e) {
+  console.log("lang selected got changed to " + $("#languageselected").text());
+});
+
+function pleaseSetText(content) {
+    firepad.on("ready", function() {
+      firepad.setText(content);
+    });
+}
 
 socket.on('output', function(output) {
   $("#runButton").html("Run &#9658;");
