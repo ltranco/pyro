@@ -49,7 +49,7 @@ socket.on('output', function(output) {
 });
 
 if(hasFlash) {
-  ZeroClipboard.config({swfPath:"//cdnjs.cloudflare.com/ajax/libs/zeroclipboard/2.2.0/ZeroClipboard.swf"});
+  ZeroClipboard.config({swfPath:"https://cdnjs.cloudflare.com/ajax/libs/zeroclipboard/2.2.0/ZeroClipboard.swf"});
   var client = new ZeroClipboard($("#shareLink"));
   client.clip(document.getElementById("shareLink"));    
   document.getElementById('global-zeroclipboard-html-bridge').style.position = 'fixed';
@@ -87,10 +87,10 @@ function sendCode() {
 }
 
 function shareLink() {
-  /*$("#shareLink").text("Copied").css("color", "#7FFF00");
+  $("#shareLink").html("&#x2713;");
   window.setTimeout(function() {
     $("#shareLink").text("Copy Link").css("color", "white");
-  }, 800);*/
+  }, 800);
   if(!hasFlash) {
     window.prompt("Copy Link", window.location.href);
   }
