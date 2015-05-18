@@ -47,6 +47,10 @@ $("#languageoption li a").click(function(){
   console.log(lang + " " + compiler + " " + filename);
 });
 
+firepad.on("synced", function(isSynced) {
+  $("#languageselected").html(codeMirror.getOption("mode") + "<strong class=\"caret\"></strong>");
+  });
+
 socket.on('output', function(output) {
   $("#runButton").html("Run &#9658;");
   outputpad.setText("");
