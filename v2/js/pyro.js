@@ -20,6 +20,7 @@ var setMode = 'python';
 var mode = {'c':'clike', 'c++':'clike', 'java':'text/x-java', 'python':'python'};
 var compile = {'java': 'javac', 'c++':'gcc', 'c':'gcc', 'python':'python'};
 var ext = {'python':'py', 'haskell':'hs', 'java':'java', 'c':'c', 'c++':'cpp'};
+var cmt = {'python':'#', 'java':'//'};
 var templateCode = {'python':pythonDefault, 'java':javaDefault};
 
 function fire() {
@@ -53,13 +54,15 @@ $("#languageoption li a").click(function(){
 
 firepadLangRef.child("currLang").on("value", function(snapshot) {
   var lang = snapshot.val();
-  $("#languageselected").html((lang.charAt(0).toUpperCase() + lang.slice(1)) + "<strong class=\"caret\"></strong>");
-  setMode = mode[lang];
-  compiler = compile[lang];
-  filename = 'solution.' + ext[lang];
+  if(lang) {
+    $("#languageselected").html((lang.charAt(0).toUpperCase() + lang.slice(1)) + "<strong class=\"caret\"></strong>");
+    setMode = mode[lang];
+    compiler = compile[lang];
+    filename = 'solution.' + ext[lang];
 
-  codeMirror.setOption("mode", setMode);
-  console.log(lang + " " + compiler + " " + filename);
+    codeMirror.setOption("mode", setMode);
+    console.log(lang + " " + compiler + " " + filename);
+  }
 });
 
 socket.on('output', function(output) {
@@ -99,14 +102,21 @@ function getRef() {
   return ref;
 }
 
-function sendCode() {
+function savePad() {
+  var lang = $("#languageselected").text().toLowerCase();
+  var content = firepad.getText() + "\n\n" + cmt[lang] + "Output:\n";
+  var outputArray = outputpad.getText().split(/\n/);
+  for(var i = 0; i < outputArray.length; i++) {
+    content += (cmt[lang] + outputArray[i] + "\n");  
+  }
+  console.log(content);
+  var blob = new Blob([content], {type: "text/plain;charset=utf-8"});
+  saveAs(blob, filename);
+}
 
+function sendCode() {
   $("#runButton").html("<img src=\"img/loading.GIF\" id=\"loadingGIF\" alt=\"\"/>");
-  var code = firepad.getText();
-  code = encodeURI(code);
-  socket.emit('compile', {filename:filename, compiler:compiler, code:code});
-  //$("#runButton").html("&bull;").delay(3000).html("&bull;&bull;"); 
-  
+  socket.emit('compile', {filename:filename, compiler:compiler, code:encodeURI(firepad.getText())});
 }
 
 function shareLink() {
