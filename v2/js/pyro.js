@@ -59,19 +59,7 @@ firepadRef.child("currLang").on("value", function(snapshot) {
   setMode = mode[changeTo];
   compiler = compile[changeTo];
   filename = 'solution.' + ext[changeTo];
-  console.log("SETTING THIS PLEASEEE: " + templateCode[changeTo]);
-  pleaseSetText(templateCode[changeTo]);
 });
-
-$("#languageselected").on("change", function(e) {
-  console.log("lang selected got changed to " + $("#languageselected").text());
-});
-
-function pleaseSetText(content) {
-    firepad.on("ready", function() {
-      firepad.setText(content);
-    });
-}
 
 socket.on('output', function(output) {
   $("#runButton").html("Run &#9658;");
