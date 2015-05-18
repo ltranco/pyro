@@ -12,13 +12,15 @@
   color: white;
 }
 
-#runButton {
+#runButton, #shareLink {
   cursor: pointer;
-  color: #2A3938 !important;
   width: 65px;
   text-align: center;
 }
 
+#runButton {
+  color: #2A3938 !important;
+}
 article,
 aside,
 details,
