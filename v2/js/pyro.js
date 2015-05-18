@@ -23,7 +23,7 @@ var ext = {'python':'py', 'haskell':'hs', 'java':'java', 'c':'c', 'c++':'cpp'};
 var templateCode = {'python':pythonDefault, 'java':javaDefault};
 
 function fire() {
-  firepadLangRef.update({"currLang":"python"});
+  //firepadLangRef.update({"currLang":"python"});
   /*if(currLang) {
     $("#languageselected").html((currLang.charAt(0).toUpperCase() + currLang.slice(1)) + "<strong class=\"caret\"></strong>");
     codeMirror.setOption("mode", mode[currLang]);
