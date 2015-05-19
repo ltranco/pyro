@@ -7,9 +7,21 @@
  overflow-y: hidden !important;
 }
 
+.firepad-userlist-name-input {
+  width: 90%;
+  border-radius: 3px;
+  margin-bottom: 4px;
+}
+
 #userPanel {
   background-color: #282E35;
   color: white;
+  padding: 0 5px 0 15px;
+}
+
+#savePad {
+  width: 65px;
+  text-align: center;
 }
 
 #runButton, #shareLink {
@@ -4304,7 +4316,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 
 .navbar {
   position: relative;
-  margin-bottom: 2px;
+  margin-bottom: 1px;
 }
 
 .navbar:before,
@@ -4329,7 +4341,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 
 @media (min-width: 768px) {
   .navbar {
-    border-radius: 4px;
+    /*border-radius: 4px;*/
   }
 }
 

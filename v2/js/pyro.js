@@ -32,8 +32,34 @@ function fire() {
     compiler = compile[currLang];
     filename = 'solution.' + ext[currLang];
   }*/
+  codeMirror.addKeyMap({"Cmd-J": function() {
+    $("#runButton").html("<img src=\"img/loading.GIF\" id=\"loadingGIF\" alt=\"\"/>");
+    socket.emit('compile', {filename:filename, compiler:compiler, code:encodeURI(firepad.getText())});
+  }});
+  codeMirror.addKeyMap({"Cmd-S": function() {
+    var lang = $("#languageselected").text().toLowerCase();
+    var content = firepad.getText() + "\n\n" + cmt[lang] + "Output:\n";
+    var outputArray = outputpad.getText().split(/\n/);
+    for(var i = 0; i < outputArray.length; i++) {
+      content += (cmt[lang] + outputArray[i] + "\n");  
+    }
+    var blob = new Blob([content], {type: "text/plain;charset=utf-8"});
+    saveAs(blob, filename);
+  }});
   console.log(FirepadUserList.fromDiv(firepadRef.child('users'), document.getElementById('userPanel'), userId).userList_);
 }
+
+$("#runButton").hover(function() {
+  $(this).html("Cmd+J");
+  }, function() {
+  $(this).html("Run &#9658;");
+});
+
+$("#savePad").hover(function() {
+  $(this).html("Cmd+S");
+  }, function() {
+  $(this).html("Save");
+});
 
 $("#languageoption li a").click(function(){
   $("#languageselected").html($(this).text() + "<strong class=\"caret\"></strong>");
