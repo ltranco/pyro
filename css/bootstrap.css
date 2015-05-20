@@ -1,5 +1,25 @@
-.padWrapper, #userPanel, .pyroEditor, #firepad-container, .pyroOutput, #firepad-container-output {
+.padWrapper, .infoWrap, .pyroEditor, #firepad-container, .pyroOutput, #firepad-container-output {
   height: 100%;
+}
+
+.infoWrap {
+  padding: 2px 5px 2px 5px !important;
+}
+
+#tips {
+  background-color: #556981;
+  float: right;
+  margin-top: 50%;
+  padding-left: 3px;
+}
+
+#tips a {
+  text-decoration: none;
+  color: #333;
+}
+
+.col-md-1 {
+  background-color: #282E35 !important;
 }
 
 .CodeMirror, .firepad {
@@ -16,7 +36,7 @@
 #userPanel {
   background-color: #282E35;
   color: white;
-  padding: 0 5px 0 15px;
+  margin-bottom: 400%;
 }
 
 #savePad {
@@ -1292,6 +1312,7 @@ pre code {
 @media (min-width: 992px) {
   .container {
     width: 100%;
+    position: fixed;
   }
   .col-md-1,
   .col-md-2,
