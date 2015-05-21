@@ -8,8 +8,7 @@
 
 #tips {
   background-color: #556981;
-  float: right;
-  margin-top: 50%;
+  bottom: 0;
   padding-left: 3px;
 }
 
@@ -36,7 +35,7 @@
 #userPanel {
   background-color: #282E35;
   color: white;
-  margin-bottom: 400%;
+  margin-bottom: 30px:
 }
 
 #savePad {
