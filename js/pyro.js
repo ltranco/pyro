@@ -63,6 +63,7 @@ function fire() {
   }});
 
   console.log(FirepadUserList.fromDiv(firepadRef.child('users'), document.getElementById('userPanel'), userId).userList_);
+  console.log($(".col-md-1").css("width"));
 }
 /*
 $("#runButton").hover(function() {

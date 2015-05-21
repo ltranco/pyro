@@ -1313,6 +1313,7 @@ pre code {
     width: 100%;
     position: fixed;
   }
+ 
   .col-md-1,
   .col-md-2,
   .col-md-3,
@@ -4783,6 +4784,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 @media (max-width: 767px) {
+
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
     color: #777777;
   }
@@ -7059,6 +7061,37 @@ td.hidden-lg {
   th.hidden-lg.hidden-xs,
   td.hidden-lg.hidden-xs {
     display: none !important;
+  }
+}
+
+@media (max-width: 1000px) {
+  .col-md-1 {
+    color: red;
+    float: left;
+    width: 20%;
+  }
+  #tips {
+    display: none;
+  }
+  .navbar-nav li {
+    padding-left: 20px;
+    display: inline-block;
+  }
+  .navbar-right li {
+    padding-left: 20px;
+    display: inline-block;
+  }
+  #languageselected {
+    width: 100px;
+    display: inline-block;
+  }
+  .col-md-7 {
+    float: left;
+    width: 50%;
+  }
+  .col-md-4 {
+    float: left;
+    width: 30%;
   }
 }
 
