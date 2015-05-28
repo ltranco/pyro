@@ -46,6 +46,7 @@
 #runButton, #shareLink {
   cursor: pointer;
   width: 65px;
+  height: 30px;
   text-align: center;
 }
 
