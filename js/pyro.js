@@ -11,6 +11,13 @@ var userId = Math.floor(Math.random() * 9999999999).toString();
 //Default code
 var pythonDefault = "print 'Welcome to PyroPad in Python!'";
 var javaDefault = "//Please keep your public class name as 'solution'\npublic class solution {\n  public static void main(String[] args) {\n    System.out.println(\"Welcome to PyroPad in Java!\");\n  }\n}";
+var cDefault = "#include <stdio.h>\n\nmain() {\n  printf(\"Welcome to PyroPad in C!\");\n}";
+var cppDefault = "#include <iostream>\n\nint main() {\n  std::cout << \"Welcome to PyroPad in C++!\";\n}";
+var cSharpDefault = "using System;\n\npublic class solution {\n  public static void Main() {\n    Console.WriteLine(\"Welcome to PyroPad in C#!\");\n  }\n}";
+var hsDefault = "module Main where\n\nmain = putStrLn \"Welcome to PyroPad in Haskell!\"";
+var perlDefault = "#!/usr/bin/perl\n\nuse strict;\nuse warnings;\n\nprint \"Welcome to PyroPad in Perl!\";";
+var rubyDefault = "puts \"Welcome to PyroPad in Ruby!\"";
+var scalaDefault = "object solution {\n  def main(args: Array[String]) {\n    println(\"Welcome to PyroPad in Scala!\")\n  }\n}";
 
 //Socket io instantiation
 var socket = io('https://hidden-inlet-2774.herokuapp.com/');
@@ -36,11 +43,11 @@ var filename = 'solution.py';
 var setMode = 'python';
 
 //Available languages and corresponding attributes
-var mode = {'c':'clike', 'c++':'clike', 'java':'text/x-java', 'python':'python'};
+var mode = {'c':'text/x-csrc', 'c++':'text/x-c++src', 'java':'text/x-java', 'python':'python', 'c#':'text/x-csharp', 'scala':'text/x-scala', 'ruby':'text/x-ruby', 'perl':'text/x-perl', 'haskell':'text/x-haskell'};
 var compile = {'java': 'javac', 'c++':'gcc', 'c':'gcc', 'python':'python'};
 var ext = {'python':'py', 'haskell':'hs', 'java':'java', 'c':'c', 'c++':'cpp'};
-var cmt = {'python':'#', 'java':'//'};
-var templateCode = {'python':pythonDefault, 'java':javaDefault};
+var cmt = {'python':'#', 'java':'//', 'c':'//', 'c++':'//'};
+var templateCode = {'python':pythonDefault, 'java':javaDefault, 'c':cDefault, 'c++':cppDefault, 'c#':cSharpDefault, 'haskell':hsDefault, 'perl':perlDefault, 'ruby':rubyDefault, 'scala':scalaDefault};
 
 //Called upon body loads
 function fire() {
@@ -91,6 +98,20 @@ $("#languageoption li a").click(function(){
     firepadLangRef.update({"currLang":"python"});
   else if(lang == "java")
     firepadLangRef.update({"currLang":"java"});
+  else if(lang == "c")
+    firepadLangRef.update({"currLang":"c"});
+  else if(lang == "c++")
+    firepadLangRef.update({"currLang":"c++"});
+  else if(lang == "c#")
+    firepadLangRef.update({"currLang":"c#"});
+  else if(lang == "haskell")
+    firepadLangRef.update({"currLang":"haskell"});
+  else if(lang == "perl")
+    firepadLangRef.update({"currLang":"perl"});
+  else if(lang == "scala")
+    firepadLangRef.update({"currLang":"scala"});
+  else if(lang == "ruby")
+    firepadLangRef.update({"currLang":"ruby"});
 
   //Update current mode, compiler, and filename to match current language option
   setMode = mode[lang];
