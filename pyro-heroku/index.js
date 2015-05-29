@@ -13,11 +13,19 @@ io.on('connection', function(socket){
 		        return console.log(err);
 		    }
 		});
-		//echo 'compile.code' > compile.filename; compile.compiler compile.filename
-		//var commands = 'echo \'' + decodeURI(compile.code) + '\' > ' + compile.filename + '; ' + compile.compiler + ' '+ compile.filename;
+
 		var commands = compile.compiler + ' ' + compile.filename;
 		if(compile.filename == "solution.java") {
-			commands += "; java solution"
+			commands += "; java solution";
+		}
+		else if(compile.filename == "solution.c" || compile.filename == "solution.cpp") {
+			commands += "; ./a.out";
+		}
+		else if(compile.filename == "solution.hs") {
+			commands += "; ./solution";
+		}
+		else if(compile.filename == "solution.scala") {
+			commands += "; scala solution";
 		}
 		console.log(commands);
 		exec(commands, function (error, stdout, stderr) {
@@ -35,4 +43,5 @@ io.on('connection', function(socket){
 		console.log("connected");
 	});
 });
+
 io.listen(port);

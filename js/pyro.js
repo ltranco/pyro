@@ -44,7 +44,7 @@ var setMode = 'python';
 
 //Available languages and corresponding attributes
 var mode = {'c':'text/x-csrc', 'c++':'text/x-c++src', 'java':'text/x-java', 'python':'python', 'c#':'text/x-csharp', 'scala':'text/x-scala', 'ruby':'text/x-ruby', 'perl':'text/x-perl', 'haskell':'text/x-haskell'};
-var compile = {'java': 'javac', 'c++':'gcc', 'c':'gcc', 'python':'python'};
+var compile = {'java': 'javac', 'c++':'g++', 'c':'gcc', 'python':'python', 'haskell':'ghc -o solution', 'perl':'perl', 'scala':'scalac', 'ruby':'ruby', 'c#':'csc'};
 var ext = {'python':'py', 'haskell':'hs', 'java':'java', 'c':'c', 'c++':'cpp'};
 var cmt = {'python':'#', 'java':'//', 'c':'//', 'c++':'//'};
 var templateCode = {'python':pythonDefault, 'java':javaDefault, 'c':cDefault, 'c++':cppDefault, 'c#':cSharpDefault, 'haskell':hsDefault, 'perl':perlDefault, 'ruby':rubyDefault, 'scala':scalaDefault};
