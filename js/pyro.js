@@ -19,8 +19,8 @@ var perlDefault = "#!/usr/bin/perl\n\nuse strict;\nuse warnings;\n\nprint \"Welc
 var rubyDefault = "puts \"Welcome to PyroPad in Ruby!\"";
 var scalaDefault = "object solution {\n  def main(args: Array[String]) {\n    println(\"Welcome to PyroPad in Scala!\")\n  }\n}";
 
-//Socket io instantiation
-var socket = io('https://pyro-heroku.herokuapp.com/');
+//Socket io instantiation with Heroku
+var socket = io('https://pyro-backend.herokuapp.com/');
 
 //CodeMirror references for code editor, output pad, and language option
 var codeMirror = CodeMirror(document.getElementById('firepad-container'), {lineNumbers: true, theme: 'monokai', mode: 'python', userId:userId, matchBrackets: true});
