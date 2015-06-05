@@ -2,6 +2,10 @@
   height: 100%;
 }
 
+#firepad-container, #firepad-container-output {
+  background-color: #272822;
+}
+
 .infoWrap {
   padding: 2px 5px 2px 5px !important;
 }
@@ -22,8 +26,7 @@
 }
 
 .CodeMirror, .firepad {
- height: 100% !important;
- overflow-y: hidden !important;
+ height: 97% !important;
 }
 
 .firepad-userlist-name-input {
