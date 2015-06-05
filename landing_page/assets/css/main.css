@@ -1630,6 +1630,13 @@
 	#mainimg {
 		width: 100%;
 		height: 500px;
+		padding: 0 0 0 0;
+	}
+
+	#pyroGif {
+		width: 100%;
+		height: 100%;
+		position: relative;
 	}
 
 	#launchButton {
